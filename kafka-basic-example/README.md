@@ -373,57 +373,9 @@ http://localhost:8080
 
 ---
 
-# 9. Send Event to Kafka via REST API
 
-Example endpoint:
 
-```http
-POST /api/orders
-```
-
-Sample payload:
-
-```json
-{
-  "orderId": "ORD-1001",
-  "customerId": "CUST-101",
-  "product": "iPhone",
-  "amount": 4500
-}
-```
-
-Using curl:
-
-```bash
-curl --location 'http://localhost:8080/api/orders' \
---header 'Content-Type: application/json' \
---data '{
-    "orderId":"ORD-1001",
-    "customerId":"CUST-101",
-    "product":"iPhone",
-    "amount":4500
-}'
-```
-
-What happens internally:
-
-```text
-REST API
-    ↓
-Kafka Producer
-    ↓
-orders topic
-    ↓
-Kafka Consumer
-```
-
-Your Spring Boot application publishes message to Kafka.
-
-Consumer receives and processes it.
-
----
-
-# 10. Useful Kafka Commands
+# 9. Useful Kafka Commands
 
 ## List Topics
 
@@ -448,7 +400,26 @@ docker exec -it kafka /opt/kafka/bin/kafka-console-producer.sh --bootstrap-serve
 ```bash
 docker exec -it kafka /opt/kafka/bin/kafka-console-consumer.sh --bootstrap-server localhost:9092 --topic orders --from-beginning
 ```
+# 9. Send Event to Kafka via REST API
 
+
+What happens internally:
+
+```text
+REST API
+    ↓
+Kafka Producer
+    ↓
+orders topic
+    ↓
+Kafka Consumer
+```
+
+Your Spring Boot application publishes message to Kafka.
+
+Consumer receives and processes it.
+
+---
 # Kafka Basic Example (Spring Boot + Kafka + Swagger)
 
 ## Run Spring Boot Application
