@@ -1,7 +1,12 @@
 package com.example.groups;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
 @SpringBootApplication
 public class ConsumerGroupsApplication {
- public static void main(String[] args){SpringApplication.run(ConsumerGroupsApplication.class,args);}
+ 
+ public static void main(String[] args){
+  SpringApplication.run(ConsumerGroupsApplication.class,args);
+ }
+ 
 }
