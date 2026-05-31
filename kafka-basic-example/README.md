@@ -23,50 +23,92 @@ Benefits:
 - Easy restart/reset
 - Lightweight local development
 
-## Install Docker Desktop for Windows
+## 1. Enable Virtualization in BIOS
 
-Download Docker Desktop:
+Docker Desktop requires CPU virtualization support.
 
-https://docs.docker.com/desktop/setup/install/windows-install/
+### Steps
 
-Install Docker Desktop and restart your machine if required.
+1. Restart your machine
+2. Enter BIOS/UEFI setup  
+   (usually **F2**, **DEL**, **ESC**, or **F10** during startup)
+3. Locate virtualization settings
 
-After installation:
+Enable one of the following:
 
-Open **Docker Desktop** and ensure it is running.
+- **Intel VT-x**
+- **Intel Virtualization Technology**
+- **AMD-V**
+- **SVM Mode**
 
-Verify installation from Command Prompt:
-
-```bash
-docker --version
-```
-
-Example output:
-
-```text
-Docker version 28.x.x
-```
-
-Verify Docker is running:
-
-```bash
-docker ps
-```
-
-If Docker is running, you should not see errors.
+4. Save changes and restart Windows
 
 ---
 
-# 2. Install Kafka Image in Docker
+## 2. Install WSL (Windows Subsystem for Linux)
 
-We will use the official Apache Kafka image.
+Open **PowerShell as Administrator** and run:
 
-Open **Command Prompt** and run:
+```bash
+wsl --install
+```
+
+Restart your machine after installation.
+
+Verify installation:
+
+```bash
+wsl --status
+```
+
+Expected output should show:
+
+- Default Version: 2
+
+If needed, set WSL 2 as default:
+
+```bash
+wsl --set-default-version 2
+```
+
+---
+
+## 3. Install Docker Desktop
+
+Download:
+
+https://docs.docker.com/desktop/setup/install/windows-install/
+
+During installation ensure:
+
+- **Use WSL 2 instead of Hyper-V** is enabled
+
+After installation:
+
+Open Docker Desktop and wait until it starts.
+
+Verify:
+
+```bash
+docker --version
+docker ps
+```
+
+---
+
+## 4. Install Kafka Docker Image & Run Kafka Container
 
 ```bash
 docker run -d --name kafka -p 9092:9092 apache/kafka:latest
 ```
 
+Verify:
+
+```bash
+docker ps
+```
+
+---
 ## Command Explanation
 
 ### docker run
@@ -128,7 +170,7 @@ running.
 
 ---
 
-# 3. Verify Kafka Is Running
+# Verify Kafka Is Running
 
 List Kafka topics:
 
@@ -158,7 +200,7 @@ Initially, you may see no topics.
 
 ---
 
-# 4. Create Topic (orders)
+# 5. Create Topic (orders)
 
 If the topic does not exist, create it.
 
